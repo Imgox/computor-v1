@@ -1,0 +1,10 @@
+{
+  "error_1": {
+    "code": "1",
+    "message": "Usage: ./computor.js <equation>"
+  },
+  "error_2": {
+    "code": "2",
+    "message": "Syntax error."
+  }
+}
