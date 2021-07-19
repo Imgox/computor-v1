@@ -8,15 +8,20 @@ const args = process.argv.slice(2);
  */
 
 const throw_error = (error_id) => {
-  // console.log("\n" + message + "\n");
-  // process.exit(code);
-  errors.error_id;
+	Object.entries(errors).map((el) => {
+		const [id, err] = el;
+		if (id === error_id) {
+			console.log(err.message);
+			process.exit(err.code);
+		}
+	});
+	process.exit(-1);
 };
 
 /**
  * Checking if we got exactly one argument.
  */
-if (args.length !== 1) throw_error(1, "Usage: ./computor.js <equation>");
+if (args.length !== 1) throw_error("error_1");
 
 const equation_string = args[0];
 const [operand1, operand2] = equation_string.split("=").map((e) => e.trim());
@@ -24,4 +29,7 @@ const [operand1, operand2] = equation_string.split("=").map((e) => e.trim());
 /**
  * Checking if the two operands are both present.
  */
-if (!operand1 || !operand2) throw_error(2, "Syntax error");
+if (!operand1 || !operand2) throw_error("error_2");
+
+console.log(operand1);
+console.log(operand2);
