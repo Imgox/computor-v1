@@ -5,6 +5,23 @@
   },
   "error_2": {
     "code": "2",
-    "message": "Syntax error."
-  }
+    "message": "Syntax error: expected an equation."
+  },
+  "error_3": {
+    "code": "3",
+    "message": "Syntax error: expected numeric coefficients."
+  },
+  "error_4": {
+    "code": "4",
+    "message": "Syntax error: expected numeric powers."
+  },
+  "error_5": {
+    "code": "5",
+    "message": "Syntax error: empty coefficients."
+  },
+  "error_6": {
+    "code": "5",
+    "message": "Error: The polynomial degree is a float, I can't solve."
+  },
+  "default": "Something went wrong."
 }
