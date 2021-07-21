@@ -12,6 +12,7 @@ const throw_error = (error_id) => {
     const [id, err] = el;
     if (id === error_id) {
       console.log(err.message);
+      // console.log("Error code: " + err.code);
       process.exit(err.code);
     }
   });
@@ -21,7 +22,7 @@ const throw_error = (error_id) => {
 
 /**
  * Parse an operand string into a stack of {coefficient, power} objects,
- * sorted from the biggest power to the smallest.
+ * sorted from the smallest power to the biggest.
  * @param {string} operand_string
  */
 
@@ -62,7 +63,7 @@ const parse_operand = (operand_string) => {
   });
 
   ret.sort((a, b) => {
-    if (a.power > b.power) return -1;
+    if (a.power <= b.power) return -1;
     return 1;
   });
 
@@ -76,7 +77,26 @@ const parse_operand = (operand_string) => {
  * @param {array} operand2
  */
 
-const get_reduced_form = (operand1, operand2) => {};
+const get_reduced_form = (operand1, operand2) => {
+  const ret = operand1;
+
+  while (operand2[0]) {
+    const el2 = operand2.pop();
+    if (el2.power === operand1[0].power) {
+      const el1 = operand1.pop();
+      ret.push({
+        coefficient: el1.coefficient - el2.coefficient,
+        power: el1.power,
+      });
+    } else {
+      ret.push({
+        coefficient: -1 * el2.coefficient,
+        power: el2.power,
+      });
+    }
+  }
+  return ret;
+};
 
 /**
  * Checking if we got exactly one argument.
@@ -98,4 +118,6 @@ const operand2 = parse_operand(operand2_string);
 const degree =
   operand1[0].power > operand2[0].power ? operand1[0].power : operand2[0].power;
 
-// const reducedForm = get_reduced_form(operand1, operand2);
+const reducedForm = get_reduced_form(operand1, operand2);
+
+console.log(reducedForm);
