@@ -78,6 +78,7 @@ const parse_operand = (operand_string) => {
 				} else {
 					power = coefficient.replace("X^", "");
 					coefficient = 1;
+					if (isNaN(power)) throw_error("error_4");
 					if (Number(power) % 1 !== 0) throw_error("error_6");
 				}
 			} else {
@@ -140,7 +141,12 @@ const get_reduced_form = (operand1, operand2) => {
 			ret[index].coefficient -= operand2[i].coefficient;
 		}
 	}
-	return ret.filter((el) => el.coefficient !== 0);
+	return ret
+		.filter((el) => el.coefficient !== 0)
+		.sort((a, b) => {
+			if (a.power <= b.power) return -1;
+			return 1;
+		});
 };
 
 /**
@@ -240,6 +246,8 @@ if (args.length !== 1) throw_error("error_1");
 
 const equation_string = args[0].replace(/\s/g, "");
 
+if (equation_string.length === 0) throw_error("error_2");
+
 let [operand1_string, operand2_string] = equation_string
 	.split("=")
 	.map((e) => e.trim());
@@ -262,6 +270,12 @@ const degree = get_degree(reducedForm);
 
 write_reduced_form(reducedForm);
 stdout.write(`Polynomial degree: ${degree}\n`);
+if (degree > 2) {
+	stdout.write(
+		"The polynomial degree is strictly greater than 2, I can't solve."
+	);
+	process.exit();
+}
 
 /**
  * Calculate Solutions
