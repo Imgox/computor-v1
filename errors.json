@@ -20,8 +20,16 @@
     "message": "Syntax error: empty coefficients."
   },
   "error_6": {
-    "code": "5",
+    "code": "6",
     "message": "Error: The polynomial degree is a float, I can't solve."
+  },
+  "error_7": {
+    "code": "7",
+    "message": "Error: The polynomial degree is negative, I can't solve."
+  },
+  "error_8": {
+    "code": "8",
+    "message": "Syntax error: you may have a typo (Check if you are using '*' correctly)"
   },
   "default": "Something went wrong."
 }
